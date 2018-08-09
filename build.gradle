@@ -1,0 +1,44 @@
+buildscript {
+    ext.atomicfu_version = '0.11.0-plugin'
+
+    dependencies {
+        classpath "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$atomicfu_version"
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.2.60'
+}
+
+apply plugin: 'kotlinx-atomicfu'
+apply plugin: 'application'
+
+mainClassName = 'MainKt'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven {     url 'http://dl.bintray.com/kotlin/kotlin-eap' }
+}
+
+sourceSets {
+    main.kotlin.srcDirs = ['src']
+    test.kotlin.srcDirs = ['test']
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    compileOnly "org.jetbrains.kotlinx:atomicfu:$atomicfu_version"
+    testCompile "org.jetbrains.kotlinx:atomicfu:$atomicfu_version" // !!!
+}
+
+task lockFreedomTest(type: Test, dependsOn: testClasses) {
+    include '**/*LFTest.*'
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "MainKt")
+    }
+}
