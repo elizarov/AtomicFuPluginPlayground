@@ -9,4 +9,14 @@ class CounterTest {
         c.inc()
         assertEquals(1, c.get())
     }
+
+    @Test
+    fun testMore() {
+        val n = 1000
+        val c = Counter()
+        repeat(n) {
+            c.inc()
+        }
+        assertEquals(n, c.get())
+    }
 }
