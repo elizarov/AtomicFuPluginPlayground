@@ -1,5 +1,5 @@
 buildscript {
-    ext.atomicfu_version = '0.11.0-plugin'
+    ext.atomicfu_version = '0.11.1-plugin'
 
     dependencies {
         classpath "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$atomicfu_version"
@@ -30,11 +30,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
     compileOnly "org.jetbrains.kotlinx:atomicfu:$atomicfu_version"
-    testCompile "org.jetbrains.kotlinx:atomicfu:$atomicfu_version" // !!!
-}
-
-task lockFreedomTest(type: Test, dependsOn: testClasses) {
-    include '**/*LFTest.*'
+    testCompile "org.jetbrains.kotlinx:atomicfu:$atomicfu_version"
 }
 
 jar {
